@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CentralCanteen
+﻿namespace CentralCanteen
 {
+  /// <summary>
+  /// Class for holding pizza topping size, name and its localized price. Class used when binding to ListBoxes
+  /// </summary>
   public class PizzaToppingSize
   {
     public string Name { get; set; }

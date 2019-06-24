@@ -1,56 +1,87 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CentralCanteen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CentralCanteen.Tests
 {
   [TestClass()]
-  public class CartTests
+  public class CartTests : MockObjects
   {
     [TestMethod()]
     public void AddToCartTest()
     {
-      Assert.Fail();
-    }
+      Cart Cart = new Cart();
+      Cart.AddToCart(OrderItemPi);
+      Cart.AddToCart(OrderItemLog);
+      Assert.AreEqual(2, Cart.OrderItems.Count);
+      Assert.AreEqual("$5.85", Cart.LocalizedTotal);
 
-    [TestMethod()]
-    public void AddToCartTest1()
-    {
-      Assert.Fail();
-    }
+      Cart.AddToCart(OrderItemGR);
+      Assert.AreEqual(3, Cart.OrderItems.Count);
+      Assert.AreEqual("$7.46", Cart.LocalizedTotal);
 
-    [TestMethod()]
-    public void RemoveFromCartTest()
-    {
-      Assert.Fail();
+      Cart.AddToCart(OrderItemPizza);
+      Assert.AreEqual(4, Cart.OrderItems.Count);
+      Assert.AreEqual("$20.83", Cart.LocalizedTotal);
     }
 
     [TestMethod()]
     public void FindInCartTest()
     {
-      Assert.Fail();
+      Cart Cart = new Cart();
+      Cart.AddToCart(OrderItemPi);
+      Cart.AddToCart(OrderItemLog);
+
+      Assert.IsTrue(Cart.FindInCart(FoodItemLog));
+      Assert.IsFalse(Cart.FindInCart(FoodItemGR));
+
+      Cart.AddToCart(OrderItemPizza);
+      Assert.IsTrue(Cart.FindInCart(FoodItemPizza));
     }
 
     [TestMethod()]
     public void ClearTest()
     {
-      Assert.Fail();
+      Cart Cart = new Cart();
+      Cart.AddToCart(OrderItemPi);
+      Cart.AddToCart(OrderItemLog);
+      Cart.AddToCart(OrderItemGR);
+      Cart.AddToCart(OrderItemPizza);
+
+      Cart.Clear();
+
+      Assert.AreEqual("$0.00", Cart.LocalizedTotal);
     }
 
     [TestMethod()]
     public void RefreshTotalsTest()
     {
-      Assert.Fail();
+      Cart Cart = new Cart();
+      Cart.OrderItems.Add(OrderItemLog);
+      Assert.AreEqual("$0.00", Cart.LocalizedTotal);
+
+      Cart.RefreshTotals();
+      Assert.AreEqual("$2.71", Cart.LocalizedTotal);
     }
 
     [TestMethod()]
     public void GetLocalizedTotalTest()
     {
-      Assert.Fail();
+      Cart Cart = new Cart();
+      Cart.AddToCart(OrderItemPi);
+      Assert.AreEqual("$3.14", Cart.GetLocalizedTotal());
+    }
+
+    [TestMethod()]
+    public void RemoveFromCartTest()
+    {
+      Cart Cart = new Cart();
+      Cart.AddToCart(OrderItemPi);
+      Cart.AddToCart(OrderItemLog);
+      Cart.AddToCart(OrderItemGR);
+      Cart.AddToCart(OrderItemPizza);
+
+      Cart.RemoveFromCart(OrderItemGR);
+
+      Assert.AreEqual("$19.22", Cart.GetLocalizedTotal());
     }
   }
 }

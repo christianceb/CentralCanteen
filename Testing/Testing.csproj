@@ -50,7 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\CartTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Abstract\DeliveryTests.cs" />
+    <Compile Include="Abstract\FoodItemTests.cs" />
+    <Compile Include="Abstract\InvoiceTests.cs" />
+    <Compile Include="Abstract\MenuTests.cs" />
+    <Compile Include="Abstract\MockObjects.cs" />
+    <Compile Include="Abstract\MoneyTests.cs" />
+    <Compile Include="Abstract\OrderItemTests.cs" />
+    <Compile Include="Abstract\OrderTests.cs" />
+    <Compile Include="Abstract\PizzaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
