@@ -8,8 +8,8 @@ namespace CentralCanteen
 {
   public class Pizza : FoodItem
   {
-    private string Size;
-    private string Topping;
+    public string Size;
+    public string Topping;
     public int PriceLow = 0;
     public string LocalizedPrice { get => GetLocalizedPrice(); }
     public string MenuPrice { get => GetLocalizedVariationPrice(); }
@@ -98,6 +98,11 @@ namespace CentralCanteen
       }
 
       return "$" + LocalizedPrice;
+    }
+
+    public override string GetInvoiceName()
+    {
+      return Name.ToUpper() + " - " + Size.ToUpper().Substring(0, 1) + " " + Topping.ToUpper();
     }
   }
 }

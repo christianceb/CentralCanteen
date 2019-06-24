@@ -55,10 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Abstract\Invoice.cs" />
+    <Compile Include="Abstract\Menu.cs" />
     <Compile Include="Abstract\PizzaTopping.cs" />
     <Compile Include="Abstract\PizzaToppingSize.cs" />
-    <Compile Include="Invoice.xaml.cs">
-      <DependentUpon>Invoice.xaml</DependentUpon>
+    <Compile Include="InvoiceWindow.xaml.cs">
+      <DependentUpon>InvoiceWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Checkout.xaml">
       <SubType>Designer</SubType>
@@ -83,7 +85,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Invoice.xaml">
+    <Page Include="InvoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

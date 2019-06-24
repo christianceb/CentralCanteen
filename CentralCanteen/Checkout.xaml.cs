@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CentralCanteen
 {
@@ -23,12 +13,12 @@ namespace CentralCanteen
 
     public MainWindow MainWindow;
 
-    public Checkout( Order Order )
+    public Checkout(Order Order)
     {
       InitializeComponent();
 
       this.Order = Order;
-      LbCart.ItemsSource = Order.OrderItems;
+      LbCart.ItemsSource = Order.Items;
       LblTotalValue.Content = Order.GetLocalizedTotal();
     }
 
@@ -40,13 +30,13 @@ namespace CentralCanteen
     private void BtnCheckout_Click(object sender, RoutedEventArgs e)
     {
       ClearValidationErrors();
-      if ( ValidateCheckout() )
+      if (ValidateCheckout())
       {
         Order.CheckoutDateNow();
 
-        Invoice Invoice = new Invoice( Order );
-        Invoice.Owner = Owner;
-        Invoice.ShowDialog();
+        InvoiceWindow InvoiceWindow = new InvoiceWindow(Order);
+        InvoiceWindow.Owner = Owner;
+        InvoiceWindow.ShowDialog();
         this.Close();
       }
     }
@@ -79,7 +69,7 @@ namespace CentralCanteen
         TbPhone.BorderBrush = Brushes.Red;
         pass = false;
       }
-      if ( ! (bool) RbDelivered.IsChecked && ! (bool) RbPickup.IsChecked)
+      if (!(bool)RbDelivered.IsChecked && !(bool)RbPickup.IsChecked)
       {
         RbDelivered.BorderBrush = Brushes.Red;
         RbPickup.BorderBrush = Brushes.Red;
@@ -92,14 +82,15 @@ namespace CentralCanteen
     private void Delivery_Checked(object sender, RoutedEventArgs e)
     {
       Delivery SelectedDelivery;
-      if ( (bool) RbDelivered.IsChecked )
+      if ((bool)RbDelivered.IsChecked)
       {
         SelectedDelivery = new Delivery(true, TbAddress.Text);
-      } else
+      }
+      else
       {
         SelectedDelivery = new Delivery(false);
       }
-      Order.SetDelivery( SelectedDelivery );
+      Order.SetDelivery(SelectedDelivery);
       Order.RefreshTotals();
       RefreshVisibleTotals();
       LblDeliveryValue.Content = Order.GetLocalizedDelivery();

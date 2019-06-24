@@ -11,7 +11,7 @@ namespace CentralCanteen
     public int Cost { get => CalculateCost(); }
     private readonly float DeliveryFee = 5f;
     public string Address;
-    private bool Deliver;
+    public bool Deliver;
     public string Label { get; }
     public string LocalizedCost { get => GetLocalizedCost(); }
     public string Localized { get => GetLocalizedCost(); }

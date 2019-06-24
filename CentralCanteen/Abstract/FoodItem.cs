@@ -52,10 +52,10 @@ namespace CentralCanteen
       return false;
     }
     
-    public string GetInvoiceName()
+    public virtual string GetInvoiceName()
     {
       // All caps so the name is INTENSE
-      return this.Name.ToUpper();
+      return Name.ToUpper();
     }
   }
 }

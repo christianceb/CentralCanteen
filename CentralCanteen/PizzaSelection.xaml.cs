@@ -41,6 +41,9 @@ namespace CentralCanteen
     {
       Pizza NewPizza = new Pizza() {
         Name = "Pizza",
+        Category = "Pizza",
+        Topping = ((PizzaTopping)LbToppings.SelectedItem).Name,
+        Size = ((PizzaToppingSize)LbSizes.SelectedItem).Name,
         Info = ((PizzaTopping)LbToppings.SelectedItem).Name + " - " + ((PizzaToppingSize)LbSizes.SelectedItem).Name,
         Price = ((PizzaToppingSize)LbSizes.SelectedItem).Price,
       };

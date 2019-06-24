@@ -5,18 +5,18 @@ using System.Windows;
 namespace CentralCanteen
 {
   /// <summary>
-  /// Interaction logic for Invoice.xaml
+  /// Interaction logic for InvoiceWindow.xaml
   /// </summary>
-  public partial class Invoice : Window
+  public partial class InvoiceWindow : Window
   {
-    Order Order;
+    private Invoice Invoice;
 
-    public Invoice( Order Order )
+    public InvoiceWindow( Order Order )
     {
       InitializeComponent();
 
-      this.Order = Order;
-      TbInvoice.Text = Order.RenderOrderInvoice();
+      Invoice = new Invoice( Order );
+      TbInvoice.Text = Invoice.RenderedBody;
     }
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -41,7 +41,7 @@ namespace CentralCanteen
     {
       SaveFileDialog SaveFileDialog = new SaveFileDialog();
       SaveFileDialog.Filter = "Text file (*.txt)|*.txt";
-      SaveFileDialog.FileName = "Order " + Order.DateUnix();
+      SaveFileDialog.FileName = Invoice.FileName;
 
       if (SaveFileDialog.ShowDialog() == true)
       {

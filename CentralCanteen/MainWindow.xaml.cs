@@ -10,7 +10,7 @@ namespace CentralCanteen
   public partial class MainWindow : Window
   {
     public string ApplicationName = "Central Canteen";
-    public List<FoodItem> FoodItems;
+    public Menu Menu = new Menu();
     public Cart Cart = new Cart();
     private string MenuFileName = "menu.csv";
 
@@ -24,8 +24,6 @@ namespace CentralCanteen
 
     public void LoadFile()
     {
-      FoodItems = new List<FoodItem>();
-
       if (!File.Exists(MenuFileName))
       {
         MessageBox.Show( this, "Menu file not found. Program will exit.", ApplicationName );
@@ -33,85 +31,13 @@ namespace CentralCanteen
       }
       else
       {
-        CreateFoodItems();
+        Menu.CreateFoodItems(MenuFileName);
       }
-    }
-
-    public void CreateFoodItems()
-    {
-      string[] lines = File.ReadAllLines(MenuFileName);
-
-      foreach (string line in lines)
-      {
-        string[] SplitLine = line.Split(',');
-
-        // We are only expecting 3 columns
-        if ( SplitLine.Length == 3 )
-        {
-          if ( SplitLine[1].Trim() == "Pizza" )
-          {
-            Pizza ExistingPizza = FindPizza();
-
-            if ( ExistingPizza == null )
-            {
-              FoodItems.Add( new Pizza() {
-                Name = "Pizza",
-                Category = "Pizza"
-              } );
-              ExistingPizza = FindPizza();
-            }
-
-            string[] PizzaVariations = SplitLine[0].Split('>');
-
-            ExistingPizza.AddVariation( PizzaVariations[0].Trim(), PizzaVariations[1].Trim(), CurrencyToInt(SplitLine[2]) );
-          } else
-          {
-            FoodItems.Add( new FoodItem() {
-              Name = SplitLine[0],
-              Category = SplitLine[1],
-              Price = CurrencyToInt( SplitLine[2] )
-            } );
-          }
-        }
-      }
-    }
-
-    public Pizza FindPizza()
-    {
-      Pizza Pizza = null;
-
-      foreach (FoodItem FoodItem in FoodItems)
-      {
-        if (FoodItem is Pizza)
-        {
-          Pizza = (Pizza)FoodItem;
-          break;
-        }
-      }
-
-      return Pizza;
-    }
-
-    public int CurrencyToInt( string Currency )
-    {
-      int Price = 0;
-      float FloatPrice = 0.0F;
-
-      // Remove Dollar Sign (Should always be there anyway)
-      Currency = Currency.Trim().Substring(1);
-
-      if ( float.TryParse( Currency, out FloatPrice ) )
-      {
-        FloatPrice *= 100;
-        Price = (int)FloatPrice;
-      }
-
-      return Price;
     }
 
     public void SetItemsSource()
     {
-      LbMenu.ItemsSource = FoodItems;
+      LbMenu.ItemsSource = Menu.List;
       LbCart.ItemsSource = Cart.OrderItems;
     }
 
