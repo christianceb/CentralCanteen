@@ -77,7 +77,7 @@ namespace CentralCanteen
       InvoiceBody += RenderDelivery() + "\r\n";
       InvoiceBody += RenderTotal() + "\r\n\r\n";
 
-      InvoiceBody += "----THANK YOU. ENJOY YOUR MEAL----";
+      InvoiceBody += "----THANK YOU. ENJOY YOUR MEAL!----";
 
       return InvoiceBody;
     }

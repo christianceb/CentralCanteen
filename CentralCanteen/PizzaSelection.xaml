@@ -5,12 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CentralCanteen"
         mc:Ignorable="d"
-        Title="PizzaSelection" Height="450" Width="400">
+        Title="PizzaSelection" Height="450" Width="400" Loaded="Window_Loaded">
   <Window.Resources>
-    <DataTemplate x:Key="PizzaMenuTemplate">
+    <DataTemplate x:Key="MenuToppingsTemplate">
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="300" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="5" VerticalAlignment="Center">
+          <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="MenuSizeTemplate">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Margin="5" VerticalAlignment="Center">
@@ -29,7 +39,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
           <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding LocalizedSubtotal}" />
+            <TextBlock Text="{Binding LocalizedPrice}" />
           </StackPanel>
         </StackPanel>
       </Grid>
@@ -37,18 +47,18 @@
   </Window.Resources>
   <Grid>
     <Label Content="Select A Pizza" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="25"/>
-    <GroupBox Header="Toppings" HorizontalAlignment="Left" Height="200" Margin="10,58,0,0" VerticalAlignment="Top" Width="362">
+    <GroupBox Header="Toppings" HorizontalAlignment="Left" Height="170" Margin="10,58,0,0" VerticalAlignment="Top" Width="362">
       <Grid Margin="10,10,-2,-12" HorizontalAlignment="Left" Width="352">
-        <ListBox x:Name="LbToppings" ItemTemplate="{DynamicResource PizzaMenuTemplate}" HorizontalAlignment="Left" Width="332" Height="160" VerticalAlignment="Top"/>
+        <ListBox x:Name="LbToppings" ItemTemplate="{DynamicResource MenuToppingsTemplate}" HorizontalAlignment="Left" Width="332" Height="130" VerticalAlignment="Top" SelectionChanged="LbToppings_SelectionChanged"/>
       </Grid>
     </GroupBox>
-    <GroupBox Header="Size" HorizontalAlignment="Left" Height="111" Margin="10,263,0,0" VerticalAlignment="Top" Width="362">
+    <GroupBox Header="Size" HorizontalAlignment="Left" Height="141" Margin="10,233,0,0" VerticalAlignment="Top" Width="362">
       <Grid Margin="10,10,-12,-12" HorizontalAlignment="Left" Width="352">
-        <ListBox x:Name="LbSizes" ItemTemplate="{DynamicResource PizzaMenuTemplate}" HorizontalAlignment="Left" Width="332" Height="71" VerticalAlignment="Top"/>
+        <ListBox x:Name="LbSizes" ItemTemplate="{DynamicResource MenuSizeTemplate}" HorizontalAlignment="Left" Width="332" Height="101" VerticalAlignment="Top"/>
       </Grid>
     </GroupBox>
-    <Button Content="Add To Cart" HorizontalAlignment="Left" Margin="297,379,0,0" VerticalAlignment="Top" Width="75"/>
-    <Button Content="Back" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" Width="75"/>
+    <Button x:Name="btnAddToCart" Content="Add To Cart" HorizontalAlignment="Left" Margin="297,379,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddToCart_Click"/>
+    <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" Width="75" Click="BtnBack_Click"/>
 
   </Grid>
 </Window>

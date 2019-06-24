@@ -12,7 +12,7 @@ namespace CentralCanteen
     private int Quantity;
     public string Name { get => GetName(); }
     public string InvoiceName { get => GetInvoiceName(); }
-    public string Info;
+    public string Info { get => GetInfo(); }
     public int Total { get => GetTotal(); }
     public string LocalizedSubtotal { get => GetSubtotal(); }
     
@@ -66,6 +66,11 @@ namespace CentralCanteen
     public string GetInvoiceName()
     {
       return FoodItem.InvoiceName;
+    }
+
+    public string GetInfo()
+    {
+      return FoodItem.Info;
     }
   }
 }

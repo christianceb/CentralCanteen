@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Abstract\PizzaTopping.cs" />
+    <Compile Include="Abstract\PizzaToppingSize.cs" />
     <Compile Include="Invoice.xaml.cs">
       <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>

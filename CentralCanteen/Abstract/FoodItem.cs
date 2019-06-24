@@ -11,6 +11,7 @@ namespace CentralCanteen
     public string Name { get; set; }
     public string InvoiceName { get => GetInvoiceName(); }
     public string Category { get; set; }
+    public string Info { get; set; }
     public int Price { get; set; }
     public string MenuPrice { get => GetMenuPrice(); }
 

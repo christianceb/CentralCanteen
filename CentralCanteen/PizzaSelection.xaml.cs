@@ -23,7 +23,37 @@ namespace CentralCanteen
     {
       InitializeComponent();
 
-      
+      LbToppings.ItemsSource = Pizza.Variations;
+    }
+
+    private void LbToppings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      LbSizes.ItemsSource = ((PizzaTopping)LbToppings.SelectedItem).Sizes;
+      LbSizes.SelectedIndex = 0;
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+      LbToppings.SelectedIndex = 0;
+    }
+
+    private void BtnAddToCart_Click(object sender, RoutedEventArgs e)
+    {
+      Pizza NewPizza = new Pizza() {
+        Name = "Pizza",
+        Info = ((PizzaTopping)LbToppings.SelectedItem).Name + " - " + ((PizzaToppingSize)LbSizes.SelectedItem).Name,
+        Price = ((PizzaToppingSize)LbSizes.SelectedItem).Price,
+      };
+
+      ((MainWindow)Owner).Cart.AddToCart(new OrderItem( NewPizza, 1 ) );
+
+      ((MainWindow)Owner).RefreshVisibleCart();
+      this.Close();
+    }
+
+    private void BtnBack_Click(object sender, RoutedEventArgs e)
+    {
+      this.Close();
     }
   }
 }

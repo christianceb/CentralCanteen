@@ -29,7 +29,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
           <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding LocalizedTotal}" />
+            <TextBlock Text="{Binding LocalizedSubtotal}" />
           </StackPanel>
         </StackPanel>
       </Grid>

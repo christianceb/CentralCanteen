@@ -11,25 +11,41 @@ namespace CentralCanteen
     private string Size;
     private string Topping;
     public int PriceLow = 0;
+    public string LocalizedPrice { get => GetLocalizedPrice(); }
     public string MenuPrice { get => GetLocalizedVariationPrice(); }
 
-    public List<string> ToppingChoices { get => GetToppingChoices(); }
-    private Dictionary<string, Dictionary<string, int>> Variations = new Dictionary<string, Dictionary<string, int>>();
+    //public List<string> ToppingChoices { get => GetToppingChoices(); }
+    //public Dictionary<string, Dictionary<string, int>> Variations = new Dictionary<string, Dictionary<string, int>>();
+    public List<PizzaTopping> Variations = new List<PizzaTopping>();
 
     public bool AddVariation(string Topping, string Size, int Price)
     {
       bool added = false;
 
-      if ( ! Variations.ContainsKey(Topping) )
+      PizzaTopping FoundPizzaTopping = Variations.Find(ToppingInList => ToppingInList.Name == Topping);
+
+      if ( FoundPizzaTopping == null )
       {
-        Variations.Add(Topping, new Dictionary<string, int>());
-      }
-      if ( ! Variations[Topping].ContainsKey(Size) )
-      {
-        Variations[Topping].Add(Size, Price);
-        added = true;
+        FoundPizzaTopping = new PizzaTopping()
+        {
+          Name = Topping
+        };
+
+        Variations.Add( FoundPizzaTopping );
       }
 
+      PizzaToppingSize FoundPizzaToppingSize = FoundPizzaTopping.Sizes.Find( ToppingSizeInList => ToppingSizeInList.Name == Size );
+
+      if ( FoundPizzaToppingSize == null )
+      {
+        FoundPizzaTopping.Sizes.Add( new PizzaToppingSize() {
+          Name = Size,
+          Price = Price,
+          LocalizedPrice = ToLocalizedPrice(Price)
+        } );
+        added = true;
+      }
+      
       if ( added )
       {
         if ( PriceLow == 0 )
@@ -44,21 +60,16 @@ namespace CentralCanteen
       return added;
     }
 
-    private List<string> GetToppingChoices()
-    {
-      return new List<string>(Variations.Keys);
-    }
-
-    public List<string> GetSizeChoicesByTopping( string Topping )
-    {
-      return new List<string>(Variations[Topping].Keys);
-    }
-
     public string GetLocalizedVariationPrice()
     {
       string LocalizedVariationPrice = ToLocalizedPrice( PriceLow );
 
       return "Starts at " + LocalizedVariationPrice;
+    }
+
+    public string GetLocalizedPrice()
+    {
+      return ToLocalizedPrice(Price);
     }
 
     public string ToLocalizedPrice( int Price )
